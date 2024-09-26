@@ -1,0 +1,64 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CustomersAViewModel
+@{
+
+    int? monthStart = Model.MonthStart;
+    int? yearStart = Model.YearStart;
+    int? monthEnd = Model.MonthEnd;
+    int? yearEnd = Model.YearEnd;
+
+}
+
+<div class="row m-4">
+    <!-- Back Button and Info (Company and Customer) -->
+    <div class="col-12 mb-2 p-0">
+        <div class="d-flex align-items-center">
+            <!-- Back Button -->
+            <div class="backBtn me-5">
+                <a id="backtoCP" asp-controller="ForecastEntry" asp-action="CustomersProducts" asp-route-idCustomer="@Model.IdClient" asp-route-idCommercial="@Model.IdCommercial" asp-route-monthStart="@monthStart" asp-route-yearStart="@yearStart" asp-route-monthEnd="@monthEnd" asp-route-yearEnd="@yearEnd" class="rounded-1 d-flex align-items-center justify-content-center border p-2 mb-2 border-opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-left me-2 arrow-back" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"></path>
+                    </svg>
+                    @Model.Localizer["navigation.backBtn"]
+                </a>
+            </div>
+
+            <!-- Salesperson and Customer Information -->
+            <div class="customersInfo ms-auto text-start">
+                <span>
+                    @Model.Localizer["productsPage.company"]: @Model.SocieteCustomer | @Model.Localizer["page.salesperson"]: @Model.NomCommercial <br />
+                    @Model.Localizer["productsPage.customer"]: @Model.CodeSAPCustomer - @Model.LibelleCustomer
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Table and Description and Code Section -->
+    <div class="row d-flex justify-content-center p-0">
+        <div id="productsTab" class="col-12">
+            <partial name="_FilterCompanyProductsView" model="Model" />
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+
+    <!-- Passing Razor Variables to JavaScript -->
+    <script>
+        var warningMessage = '@Html.Raw(Model.Localizer["addProducts.warningAlert"])';
+        var ajaxUrl = '@Url.Action("FilteredCompanyProducts", "ForecastEntry")';
+        var customerCodeSAP = '@Model.CodeSAPCustomer';
+        var idCommercial = '@Model.IdCommercial';
+    </script>
+    <script src="~/js/evf-filter-company-product.js"></script>
+
+}
+
+

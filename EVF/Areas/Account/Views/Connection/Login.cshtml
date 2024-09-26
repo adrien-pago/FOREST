@@ -1,0 +1,71 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-container-form d-flex justify-content-center align-items-center mt-4">
+
+    <!-- Card container -->
+    <div class="card p-3 col-* col-md-5 col-lg-4 shadow-sm" style="background-color: white;">
+        <div class="login-form d-flex flex-column align-items-center w-100">
+            <div class="welcome-phrases d-flex flex-column align-items-start w-100">
+                <h2>@ViewData["loginpage.welcome"]</h2>
+                <h3>@ViewData["loginpage.title"]</h3>
+            </div>
+
+            <form method="post" class="login-input-form w-100 mt-4" asp-area="Account" asp-controller="Connection" asp-action="Login" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" asp-route-culture="@Context.Request.Query["culture"]">
+
+                <!-- Username input with icon -->
+                <div class="input-box mb-4 w-100 d-flex justify-content-center">
+                    <!-- mb-4 for more space below -->
+                    <div class="input-group w-75 mx-auto">
+                        <input type="text" asp-for="Username" placeholder="@ViewData["input.username"]" id="idUser" class="form-control shadow-sm" required />
+                        <span class="input-group-text bg-white border-left-0">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Password input with icon -->
+                <div class="input-box mb-3 w-100 d-flex justify-content-center">
+                    <div class="input-group w-75 mx-auto">
+                        <input type="password" asp-for="Password" placeholder="@ViewData["input.password"]" id="idPassword" class="form-control shadow-sm" required />
+                        <span class="input-group-text bg-white border-left-0">
+                            <i class="fa-solid fa-eye pointer-cursor" id="togglePassword"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Error message section -->
+                <div asp-validation-summary="ModelOnly" class="text-danger error-msg-login mb-3"></div>
+
+                <!-- Forgot password link -->
+                <div class="text-end mt-2 w-100 d-flex justify-content-center">
+                    <a class="pointer-cursor forgot-pass" href="@Url.Action("ForgotPassword", "Connection", new { Area = "Account" })">@ViewData["loginpage.forgotPassword"]</a>
+                </div>
+
+                <!-- Submit button -->
+                <div class="mt-4 w-100 d-flex justify-content-center">
+                    <button type="submit" class="login-btn text-white border-0 w-75 shadow-sm hover-shadow">@ViewData["loginpage.submitbtn"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,132 @@
+﻿@model ListsViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    .icon-blockU:hover {
+ 
+        color: green!important;
+    }
+    .icon-resetP:hover {
+        color: darkblue !important;
+    }
+</style>
+
+@if (TempData.ContainsKey("newPass"))
+{
+    <script type="text/javascript">
+     
+      
+
+        // Define a function to display the new password
+        function displayNewPassword() {
+            document.getElementById('openPasswordModal').click();
+        }
+
+        // Call the function after the page has loaded
+        window.onload = function () {
+            displayNewPassword();
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var copyPastePassButton = document.getElementById('copyPastePass');
+            if (copyPastePassButton) {
+                copyPastePassButton.addEventListener("click", function (e) {
+                    var copyPassword = document.getElementById("newPassword");
+                    var userName = document.getElementById("newPassword");
+                    console.log(copyPassword);
+                    copyPassword.select();
+      
+                    copyPassword.setSelectionRange(0, 99999);
+
+                    navigator.clipboard.writeText(copyPassword.value);
+
+                    alert("Copied the text: " + copyPassword.value);
+                });
+            }
+        });
+
+    </script>
+    <!-- Button trigger modal -->
+    <button type="button" id="openPasswordModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" hidden>
+        Launch static backdrop modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Nouveau mot de passe</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span>@TempData["userName"] | @TempData["newPass"]</span>
+                    <input value="@TempData["newPass"]" id="newPassword" hidden>
+                    <input value="@TempData["userName"]" id="userName" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="copyPastePass" data-bs-dismiss="modal">Copy and paste</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+}
+<div class="row">
+    <div class="col-2">
+        <partial name="_Sidenav" />
+    </div>
+
+    <div class="col-10 mt-4">
+        
+        <table class="table table-success">
+            <thead class="">
+                <tr>
+                    <th scope="col" class="text-center">Nom</th>
+                    <th scope="col" class="text-center">Identifiant</th>
+                    <th scope="col" class="text-center">Email</th>
+                    <th scope="col" class="text-center">Lockout</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+      
+            </thead>
+            <tbody>
+                @foreach(var user in Model.UsersList)
+                {
+                    <tr>
+                        <td>@user.Name</td>
+                        <td>@user.Username</td>
+                        <td>@user.Email</td>
+                        <td>@user.IsLockout</td>
+                        <td class="d-flex justify-content-center">
+                     
+                                <form method="post" asp-controller="ManageAccount" asp-action="UnlockUser" asp-area="Account">
+                                    <button type="submit" class="btn p-0">
+                                        <i class="icon-blockU text-success bi fs-4 @if (user.IsLockout) {<text>bi-lock-fill</text>} else {<text>bi-unlock-fill</text>}"></i>
+                                    </button>
+                                    <input value="@user.Username" asp-for="UsernameToPost" hidden>
+
+                                </form>
+                            <form method="post" asp-controller="ManageAccount" asp-action="ResetUserPassword" asp-area="Account">
+                                <button class="fa-passwd-reset btn p-0" type="submit">
+                                        <i class="icon-resetP text-primary bi bi-arrow-counterclockwise fs-2 d-flex justify-content-center align-items-center position-relative">
+                                            <i class="bi bi-key-fill position-absolute fs-6"></i>
+                                        </i>
+                                    </button>
+                                <input value="@user.Username" asp-for="UsernameToPost" hidden>
+                                </form>
+                      
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>

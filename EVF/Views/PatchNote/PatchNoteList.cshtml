@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Identity
+@using EVF.DAL.Entity.EVF
+@using EVF.DAL.Entity.Identity
+
+@model Lookup<string, PatchNote>
+
+<div class="row m-4 d-flex justify-content-center">
+    <div class="backBtn col-sm-4">
+        <div class="row-cols-6">
+            <a id="backtoCP" asp-controller="ForecastEntry" asp-action="Customers" class="rounded-1 d-flex align-items-center justify-content-center border p-2 mb-2 border-opacity-50">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-left me-2 arrow-back" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"></path>
+                </svg>
+               back 
+            </a>
+        </div>
+    </div>
+
+    <div class="datePicker col-4">
+        <h1 class="fw-bolder fs-4 text-center">WHAT'S NEW</h1>
+    </div>
+
+    <div class="customersInfo col-4 d-flex justify-content-end">
+   
+    </div>
+</div>
+<div class="row d-flex justify-content-center">
+ 
+    <div class="d-flex justify-content-center flex-column mx-5 w-75">
+
+            @foreach (IGrouping<string, PatchNote> majorVersion in Model)
+                {
+            <ul data-bs-toggle="collapse" data-bs-target="@("#Major"+majorVersion.Reverse().ToList()[0].IdPatchNote)" aria-expanded="false" aria-controls="@majorVersion.Reverse().ToList()[0].IdPatchNote" >
+                <li>
+                    <span class="fw-bolder text-orange fs-4 pointer-cursor patch-header">@majorVersion.Key | @majorVersion.Reverse().ToList()[0].Titre</span> <br> <span class="fs-6">@majorVersion.Reverse().ToList()[0].Explication</span>
+             
+                </li>
+               
+           </ul>
+            <div id="@("Major"+majorVersion.Reverse().ToList()[0].IdPatchNote)" class="collapse">
+                @foreach (var note in majorVersion.OrderBy(p => p.NumeroCorrectif).ToList().Skip(1))
+                {
+                    <ul >
+                        <li><span class="fw-bold">@note.NumeroCorrectif <text>.</text> @note.Titre | @note.Date?.ToString("dd/MM/yyyy")</span> <br> @note.Explication </li>
+                    </ul>
+                }
+           
+           </div>
+                
+                }
+   
+     
+    </div>
+</div>
+

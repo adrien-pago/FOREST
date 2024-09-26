@@ -1,0 +1,47 @@
+﻿@model PersonnelAccountModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<partial name="_Sidenav" />
+
+<div class="d-flex justify-content-center">
+    <form class="form-personnel" asp-controller="ManageAccount" asp-action="CreateUserPersonnel" asp-area="Account">
+        <div class="title">Création d'un compte utilisateur (Personnel)</div>
+        <div class="input-container input-container-1">
+            <input id="usernameId" class="input" type="text" placeholder="Identifiant" asp-for="Username" />
+        </div>
+        <div class="input-container input-container-2">
+            <input id="passwordId" class="input" type="text" placeholder="Mot de passe" asp-for="Password" value="@Model.Password" readonly />
+            <span class="icon-eye"><i class="fa-solid fa-eye pointer-cursor" id="togglePassword"></i></span>
+
+            <span class="icon-copy"><i class="fa-solid fa-copy pointer-cursor" id="copyPaste"></i></span>
+
+        </div>
+
+        <div class="input-container input-container-2">
+            <select class="form-select col-4" aria-label="Default select example" asp-items="@Model.PersonnelList" asp-for="IdPersonnelSel" id="selectedPersonnel">
+                <option selected value="4">Sélectionnez un personnel</option>
+            </select>
+            <input value="" asp-for="Role" id="userRole" hidden/>
+        </div>
+        <button type="submit" class="submit">Créer</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $("#selectedPersonnel").on("change", (event) => {
+            console.log("Status selected = ", $("#selectedPersonnel option:selected").text());
+            var personnel = $("#selectedPersonnel option:selected").text();
+
+            var role = personnel.split("-")[0];
+            $('#userRole').val(role);
+
+
+            console.log($('#userRole').val());
+        });
+    </script>
+        }

@@ -1,0 +1,147 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    string returnUrl = ViewContext.HttpContext.Request.Path;
+
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+    .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+    .ToList();
+
+    var urlParam = Context.Request.Query;
+    int? monthStart = 0;
+    int? yearStart = 0;
+    int? monthEnd = 0;
+    int? yearEnd = 0;
+
+    if (urlParam.Keys.Where(k => k.Contains("monthStart")).Count() != 0)
+    {
+        monthStart = Int32.Parse(urlParam["monthStart"]);
+        yearStart =  Int32.Parse(urlParam["yearStart"]);
+        monthEnd = Int32.Parse(urlParam["monthEnd"]);
+        yearEnd = Int32.Parse(urlParam["yearEnd"]);
+    }
+
+
+}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - evf</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/pictures/APP-FOREST-JAUNE.ico" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/evf.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/evf-admin.css" asp-append-version="true" />
+    <link href='https://fonts.googleapis.com/css?family=Inika' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <script>
+        var hidePatchBoxUrl = '@Url.Action("HidePatchBox", "PatchNote")';
+    </script>
+
+</head>
+
+<body id="body">
+    <nav class="navbar bg-body-tertiary py-1">
+        <div class="container-fluid">
+            <div class="row w-100">
+                <!-- Logo Section (2 columns) -->
+                <div class="col-12 col-md-2 d-flex align-items-center mb-2 mb-md-0">
+                    <a class="navbar-brand" href="@if(User.IsInRole("Commercial") || User.IsInRole("AssistantCommercial")) {
+                    @Url.Action("Customers", "ForecastEntry", new { monthStart = monthStart, yearStart = yearStart, monthEnd = monthEnd, yearEnd = yearEnd })
+                } else {
+                    @Url.Action("IndexAdmin", "Admin")
+                }">
+                        <img src="~/pictures/EXPORT_LOGO FOREST-cropped.svg" alt="logo De Sangosse" class="logo-img">
+                    </a>
+                </div>
+
+                <!-- Spacer (5 columns) - Visible only on medium and larger screens -->
+                <div class="col-md-5 d-none d-md-block"></div>
+
+                <!-- Language Switcher and User Info Section (Combined into 5 columns) -->
+                <div class="col-12 col-md-5 d-flex justify-content-end align-items-center">
+                    <!-- Language Switcher Section (1 column on large, adjusts on small) -->
+                    <div class="d-flex align-items-center me-3">
+                        <!-- Added margin-end for spacing -->
+                        <form asp-area="Account" asp-action="ChangeLanguage" asp-controller="Connection" method="post">
+                            <input type="hidden" id="returnUrl" name="returnUrl" value="@returnUrl" />
+                            <ul class="language-switcher d-flex list-unstyled mb-0">
+                                @foreach (var cultureItem in cultureItems)
+                                {
+                                    <li class="me-1">
+                                        <button type="submit" name="culture" value="@cultureItem.Value" class="d-flex align-items-center p-0 pointer-cursor bg-transparent border-0">
+                                            <img src="~/pictures/flags/@(cultureItem.Value).png" alt="@cultureItem.Text" class="global-flag-style" style="width: 40px; height: 40px;" />
+                                        </button>
+                                    </li>
+                                }
+                            </ul>
+                        </form>
+                    </div>
+
+                    <!-- User Info Section (Wider Section) -->
+                    <div class="d-flex align-items-center justify-content-end flex-grow-1">
+                        <!-- Added flex-grow-1 to expand -->
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <main role="main" class="main-container container-fluid px-0">
+        @RenderBody()
+    </main>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        if (window.location.pathname == ('/Account/Connection/Login') || window.location.pathname == ('/Admin/Admin/IndexAdmin')) {
+            $("#body").addClass('bg-login')
+        } else {
+            $("#body").removeClass('bg-login')
+        }
+
+        $(".showSettings").on("click", (event) => {
+         
+            $('#openSettings').submit();
+        })
+
+        $(".logoutElement").on("click", (event) => {
+
+            $('#logoutButton').submit();
+        })
+
+    </script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/evf.js" asp-append-version="true"></script>
+    <script src="~/js/evf-admin.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
+

@@ -1,0 +1,98 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Identity
+@using EVF.DAL.Entity.EVF
+@using EVF.DAL.Entity.Identity
+@inject SignInManager<UserInfo> SignInManager
+@inject UserManager<UserInfo> UserManager
+@inject IDisplayPatchNote DisplayPatchNote
+@inject IViewLocalizer ViewLocalizer
+@{
+
+    var user = await UserManager.GetUserAsync(User);
+    var test = Url.ActionContext;
+}
+
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if(Url.ActionContext.ActionDescriptor.RouteValues["controller"].Equals("ForecastEntry") && Url.ActionContext.ActionDescriptor.RouteValues["action"].Equals("Index"))
+    {
+        <div class="col-2 position-relative">
+            <div class="floating">         
+                <i class="bi bi-bell fs-2 text-warning fw-bolder pointer-cursor release-icon"></i>
+            </div>
+            <div class="mt-2 py-2 px-0 position-absolute @if (user.ParametrageNav?.VuMAJ == false){<text>active</text>} release-dropdown d-flex flex-column align-items-center justify-content-between overflow-hidden">
+                <span class="fw-bolder text-uppercase" style="color:orange;">@ViewLocalizer["title.news"] 🚀</span>
+                <ul class="overflow-auto release-list p-0 m-0 w-100">
+                    @foreach (PatchNote patchNote in DisplayPatchNote.PatchNotesList.OrderByDescending(p => p.IdPatchNote))
+                    {
+                        <li class="border-top border-grey">
+                            ◦
+                            @patchNote.Explication
+                        </li>
+                    }
+                </ul>
+                <div class="bottom-section d-flex justify-content-between text-center align-items-center w-100">
+                    <div class="dont-show-container ms-2" @* method="post" asp-controller="PatchNote" asp-action="HidePatchBox" *@>
+                        <input type="checkbox" id="dont-show-check" name="dontShowAgain" @if (user.ParametrageNav?.VuMAJ == true){<text>checked</text>}/>
+                        <label for="dont-show-check" class="fw-bold">@ViewLocalizer["check.dontShow"]</label>
+                    </div>
+
+                    <a class="see-details-link pointer-cursor fw-bolder text-center text-white" href='@Url.Action("PatchNoteList", "PatchNote")'>@ViewLocalizer["btn.seeDetails"] <i class="bi bi-search"></i></a>
+                </div>
+
+            </div>
+
+        </div>
+    }
+    <!-- POP UP LIST SETTING USER -->
+    <div class="user-info-container position-relative">
+        <div class="user-info-dropdown-btn d-flex align-items-center rounded border p-2 pointer-cursor">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <g color="#00684D;">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                </g>
+            </svg>
+            <span class="fw-bold text-center ms-2 me-2">@(User.IsInRole("Administrateur") ? user.UserName : user.Nom)</span>
+            <i class="fa-solid fa-angle-down"></i>
+        </div>
+            <ul class="info-elements shadow mt-2 py-2 px-0 position-absolute ">
+                @if (!User.IsInRole("Administrateur"))
+                {
+                    <li class="d-flex align-items-center py-2 px-2">
+                        <i class="fa-solid fa-envelope me-2 text-muted"></i>
+                        <span class="text-muted">@user.Email.Split('@')[0] <br> @@@user.Email.Split('@')[1] </span>
+                    </li>
+                    <li class="d-flex align-items-center py-2 px-2 pointer-cursor border-top border-grey clickable-element showSettings">
+                        <form asp-controller="Settings" asp-action="UserSettings" method="post" id="openSettings">
+
+                            <button class="border-0 bg-transparent" id="SettingBtn" type="submit">
+                                <i class="fa-solid fa-gear me-2" style=""></i>
+                                <span class="fw-bold">@ViewLocalizer["span.settings"]</span>
+                            </button>
+                        </form>
+
+                    </li>
+                }
+
+         
+                <li class="d-flex align-items-center py- px-2 border-top border-grey pointer-cursor clickable-element logoutElement">
+                    <form asp-area="Account" asp-controller="Connection" asp-action="Logout" method="post" id="logoutButton">
+                        <button class="border-0 bg-transparent" id="logoutBtn" type="submit">
+                            <i class="fa-solid fa-right-from-bracket me-1" style="color: red;"></i>
+                            <span class="text-danger fw-bold">@ViewLocalizer["span.logout"]</span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+}
+else
+{
+
+}
+

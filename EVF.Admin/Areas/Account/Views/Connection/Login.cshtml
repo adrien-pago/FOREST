@@ -1,0 +1,77 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+<style>
+    .input-box {
+        display:flex;
+        width: 270px;
+        border: 1px solid #c1c1c1;
+        margin-bottom: 15px;
+        padding :8px;
+        border-radius:5px;
+    }
+
+    .input-box input{
+            border: 0px solid #c1c1c1;
+            width: 100%;
+            outline: none;
+            height: 30px;
+            font-size: 18px;
+    }
+
+    .input-box i {
+        padding: 8px 12px;
+            color: #00684D;
+    }
+
+
+    .login-btn {
+        border: 0px solid #c1c1c1;
+
+
+    }
+
+    .login-btn input{
+
+
+            background: #00684D;
+            color: #fff;
+            cursor: pointer;
+            border-radius:5px
+     
+    }
+
+
+</style>
+<div class="login-form d-flex align-items-center flex-column mt-5">
+    <h2>Connexion</h2>
+    <i class="fas fa-user fs-1"></i>
+    <form method="post" asp-area="Account" asp-controller="Connection" asp-action="Login" asp-route-returnUrl=" @Context.Request.Query["ReturnUrl"]" asp-route-culture="@Context.Request.Query["culture"]">
+        <div class="row d-flex flex-column mt-3 align-items-center">
+
+            <div class="input-box">
+       
+                <span><i class="fas fa-user"></i></span>
+                <input type="text" asp-for="Username" placeholder="Identifiant" id="idUser" required />
+
+            </div>
+            <div class="input-box">
+    
+                <span><i class="fas fa-unlock"></i></span>
+                <input type="password" asp-for="Password" placeholder="Mot de passe" required id="idPassword" />
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger error-msg-login"></div>
+
+
+                <div class="input-box mt-3 login-btn">
+                    <input type="submit" class="" value="Se connecter">
+                </div>
+       
+         
+        </div>
+
+      
+    </form>
+</div>

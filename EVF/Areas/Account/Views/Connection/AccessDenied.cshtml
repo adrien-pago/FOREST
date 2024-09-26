@@ -1,0 +1,37 @@
+@{
+    var isAdmin = ViewBag.IsAdmin;
+    var isCommercial = ViewBag.IsCommercial;
+    var isAssistantCommercial = ViewBag.IsAssistantCommercial;
+}
+
+<div class="container text-center" style="padding-top: 50px;">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="display-3 text-danger">OUPS!</h1>
+            <h2 class="text-secondary">Access Denied</h2>
+            <p class="lead">You do not have permission to access this page.</p>
+
+            @if (isAdmin)
+            {
+                <!-- Si l'utilisateur est un Admin -->
+                <a href="/Admin/Admin/IndexAdmin" class="btn btn-primary mt-4">
+                    Go to Admin Dashboard
+                </a>
+            }
+            else if (isCommercial || isAssistantCommercial)
+            {
+                <!-- Si l'utilisateur est un Commercial ou un Assistant Commercial -->
+                <a href="/ForecastEntry/Customers" class="btn btn-primary mt-4">
+                    Access Commercial Area
+                </a>
+            }
+            else
+            {
+                <!-- Si l'utilisateur n'a aucun de ces rôles -->
+                <a href="/Account/Connection/Login" class="btn btn-primary mt-4">
+                    Back to Login Page
+                </a>
+            }
+        </div>
+    </div>
+</div>

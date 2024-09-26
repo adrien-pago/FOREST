@@ -1,0 +1,75 @@
+﻿@model CustomersAViewModel
+@{
+    List<string> monthList = Model.Localizer["monthpicker.monthList"].ToString().Split(",").ToList();
+    string prevRange = String.Concat(monthList[Model.MonthStart - 1], "-", Model.YearStart, " / ", monthList[Model.MonthEnd - 1], "-", Model.YearEnd);
+
+    int? monthStart = Model.MonthStart;
+    int? yearStart = Model.YearStart;
+    int? monthEnd = Model.MonthEnd;
+    int? yearEnd = Model.YearEnd;
+}
+
+<div class="row m-3 d-flex justify-content-center" id="mainProductsTab">
+    <!-- Back Button / Selected Period / Salesperson and Customer Information -->
+    <div class="col-12 d-flex flex-column flex-md-row justify-content-between align-items-start">
+        <!-- Container for Back Button and Selected Period -->
+        <div class="d-flex justify-content-between align-items-center mb-2 mb-md-0">
+            <!-- Back Button -->
+            <div class="backBtn me-2">
+                <a id="backtoIndex" asp-controller="ForecastEntry" asp-action="Customers" asp-route-monthStart="@monthStart" asp-route-yearStart="@yearStart" asp-route-monthEnd="@monthEnd" asp-route-yearEnd="@yearEnd" class="rounded-1 p-1 d-flex align-items-center border p-2 border-opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-left me-2 arrow-back" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"></path>
+                    </svg>
+                    @Model.Localizer["navigation.backBtn"]
+                </a>
+            </div>
+
+            <!-- Selected Period -->
+            <div class="datePicker text-center">
+                <span class="txt-selectedPeriod ">
+                    @Model.Localizer["page.selectedPeriod"] : <span class="form-control-sm p-2 forecastPeriodRO">@prevRange</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Container for Salesperson and Customer Info + Add Product Button -->
+        <div class="d-flex justify-content-between align-items-center mt-2 mt-md-0 ms-md-3">
+            <!-- Salesperson and Customer Information -->
+            <div class="customersInfo">
+                <span>
+                    @Model.Localizer["page.salesperson"] : @Model.NomCommercial <br />
+                    @Model.Localizer["productsPage.customer"] : @Model.CodeSAPCustomer / @Model.LibelleCustomer
+                </span>
+            </div>
+
+            <!-- Add Product Button -->
+            <a class="addProduct pointer-cursor text-center ms-2" id="addProduct" asp-controller="ForecastEntry" asp-action="CompanyProducts" asp-route-idCommercial="@Model.IdCommercial" asp-route-idCustomer="@Model.IdClient" asp-route-monthStart="@monthStart" asp-route-yearStart="@yearStart" asp-route-monthEnd="@monthEnd" asp-route-yearEnd="@yearEnd">
+                <div>
+                    <span class="icon text-white align-middle">+</span>
+                    <span class="phrase text-white overflow-hidden">@Model.Localizer["productsPage.btnAddProducts"]</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Products Table -->
+    <div class="row d-flex justify-content-center" style="height: 72vh;">    
+        <div id="productsTab" class="col-12">       
+            <partial name="_FilterCustomersProductsView" model="Model" />
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <!-- Passing Razor Variables to JavaScript -->
+    <script>
+        var ajaxUrlSaveProduct = '@Url.Action("CustomersProducts", "ForecastEntry")';
+        var ajaxUrlFilterProducts = '@Url.Action("FilteredProducts", "ForecastEntry")';
+        var customerCodeSAP = '@Model.CodeSAPCustomer';
+        var idCommercial = '@Model.IdCommercial';
+    </script>
+    <script src="~/js/evf-filter-costumer-product.js"></script>
+
+}

@@ -1,0 +1,114 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ListsViewModel
+
+
+<div class="card rounded-2 p-1 bg-light">
+    <table class="table table-success table-bordered">
+        <thead class="">
+           <tr class="text-center">
+                <th colspan="4" class="text-uppercase text-success fw-bolder">Liste des clients présents dans EVF</th>
+           </tr>
+            <tr>
+                <th scope="col" class="text-center">Nom client</th>
+                <th scope="col" class="text-center">Code société</th>
+                <th scope="col" class="text-center">Assistante commerciale</th>
+                <th scope="col" class="text-center">Commercial</th>
+
+            </tr>
+            <tr>
+                <th>
+                 
+                </th>
+                <th></th>
+                <th>
+                    <select class="form-select form-select-ADV m-auto" aria-label="Default select example" id="entryAssistant" asp-items="@Model.DistinctAssistantList" asp-for="SelectedAssistant">
+                        <option selected value="4">Toutes les ADV</option>
+                    </select>
+                </th>
+                <th>
+                    <select class="form-select form-select-com m-auto" aria-label="Default select example" id="entrySalesperson" asp-items="@Model.DistinctSalespeopleList" asp-for="SelectedSalesperson">
+                        <option selected value="4">Tous les commerciaux</option>
+                    </select>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model.CustomersList)
+            {
+                <tr>
+                    <td>@customer.CustomerName</td>
+                    <td>@customer.CodeSociete</td>
+                    <td>@customer.AssistantName</td>
+                    <td>@customer.SalespersonName</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row  m-3 p-container d-flex justify-content-between">
+        <div class="col-3 text-start">
+
+            @if (Model.CustomersList.Count() == 10)
+            {
+                <span>Nombre de clients :  @(Model.CustomersList.Count * Model.CustomersList.PageNumber) / @Model.CustomersListTotal</span>
+            }
+            else
+            {
+                <span>Nombre de clients : @Model.CustomersListTotal / @Model.CustomersListTotal</span>
+            }
+
+        </div>
+
+        <div class="col-5  d-flex justify-content-center">
+
+            <div class=" pagination-container">
+                @if (Model.CustomersList.PageNumber != 1 && Model.CustomersList.PageNumber != 2)
+                {
+                    <div> <a id="page_1" class="pagination btn-link " target-page="1">1</a></div>
+
+
+                    <span>...</span>
+                }
+
+                @if (Model.CustomersList.HasPreviousPage)
+                {
+
+                    <div>
+                        <a id="page_@(Model.CustomersList.PageNumber-1)" class="pagination btn-link" target-page="@(Model.CustomersList.PageNumber-1)">@(Model.CustomersList.PageNumber - 1)</a>
+                    </div>
+                }
+                <div class="active">
+                    <a id="page_@Model.CustomersList.PageNumber" class="pagination btn-link" target-page="@Model.CustomersList.PageNumber">@Model.CustomersList.PageNumber</a>
+                </div>
+
+
+                @if (Model.CustomersList.HasNextPage)
+                {
+                    <div>
+                        <a id="page_@(Model.CustomersList.PageNumber+1)" class="pagination btn-link" target-page="@(Model.CustomersList.PageNumber+1)">@(Model.CustomersList.PageNumber + 1)</a>
+                    </div>
+
+                }
+
+                @if (Model.CustomersList.PageNumber != Model.CustomersList.PageCount && Model.CustomersList.PageNumber != Model.CustomersList.PageCount - 1 && Model.CustomersList.PageCount != 0)
+                {
+                    <span>...</span>
+                    <div>
+                        <a id="page_@Model.CustomersList.PageCount" class="pagination btn-link" target-page="@Model.CustomersList.PageCount">@Model.CustomersList.PageCount</a>
+                    </div>
+
+                }
+            </div>
+        </div>
+
+        <div class="col-2 text-end">
+            Page @(Model.CustomersList.PageCount < Model.CustomersList.PageNumber ? 0 : Model.CustomersList.PageNumber) sur @Model.CustomersList.PageCount
+        </div>
+
+    </div>
+</div>

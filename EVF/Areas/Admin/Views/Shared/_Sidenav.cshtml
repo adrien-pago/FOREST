@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div>
+    <ul id="mySidenav" class="sidenav">
+        <li>
+            <a href="#" class="text-start title"> <i class="bi bi-people-fill"></i> @ViewData["sideBar.users"] </a>
+            <ul class="nestedList">
+                <li> <a asp-controller="ManageAccount" asp-action="CreateUserPersonnel" asp-area="Account" aria-current="page" class="text-start"><i class="bi bi-person-plus-fill"></i>  @ViewData["sideBar.createUser"] (Personnel)</a> </li>
+                <li> <a asp-controller="ManageAccount" asp-action="CreateUserAdmin" asp-area="Account" aria-current="page" class="text-start"><i class="bi bi-person-plus-fill"></i> @ViewData["sideBar.createUser"] (Admin)</a> </li>
+                <li> <a asp-controller="ManageAccount" asp-action="RegisteredUsersList" asp-area="Account" aria-current="page" class="text-start"> <i class="bi bi-person-lines-fill"></i> @ViewData["sideBar.listExistingUsers"]</a> </li>
+            </ul>
+            <a href="#" class="text-start title"> <i class="bi bi-people-fill"></i> @ViewData["sideBar.customers"]  </a>
+            <ul class="nestedList">
+                <li> <a asp-controller="ManageCustomers" asp-action="CustomersList" asp-area="Admin" aria-current="page" class="text-start"><i class="bi bi-person-fill"></i> @ViewData["sideBar.listCustomers"]</a> </li>
+            </ul>
+            <a href="#" class="text-start title"><i class="bi bi-journal-text"></i> Patch notes</a>
+            <ul class="nestedList">
+                <li> <a asp-controller="ManagePatchNote" asp-action="PatchNoteForm" asp-area="Admin" aria-current="page" class="text-start"><i class="bi bi-journal-plus"></i> Add new patches</a> </li>
+            </ul>
+
+        </li>
+    </ul>
+</div>
+

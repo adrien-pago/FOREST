@@ -1,0 +1,715 @@
+/************************ SETTING GLOBAL START ************************/
+/*
+:root {
+    --color-white: #fff;
+    --color-dark: #363949;
+    --color-danger: #ff7782;
+    --color-green-DS: #00684D;
+}
+*/
+* {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+   /* 
+    box-sizing: border-box;
+    text-decoration: none !important;
+    list-style: none;
+    appearance: none;
+    list-style-type: none;
+   */
+}
+/*
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    user-select: none;
+    box-sizing: border-box;
+}
+*/
+/************************ SETTING GLOBAL END ************************/
+
+/************************ COMMON STYLES START ************************/
+.custom-underline {
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 15px 10px -15px #717343;
+    margin-top: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 15px;
+}
+
+#selectAllCheckbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.icon-green {
+    color: green;
+}
+
+.icon-red {
+    color: red!important;
+}
+
+.text-orange {
+    color: #F2AC29;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.dont-show-container input[type="checkbox"] {
+    appearance: checkbox !important;
+}
+
+a {
+    color: var(--color-dark);
+}
+
+    a:hover {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.patch-header:hover {
+  color: #f7c866;
+}
+
+.arrow-copy {
+    color: #626234;
+}
+
+.decimalInputPrice:invalid {
+    border: 4px solid red;
+}
+.rounded-top-left-1 {
+    border-top-left-radius: 1rem;
+}
+
+.rounded-top-right-1 {
+    border-top-right-radius: 1rem;
+}
+
+.rounded-bottom-left-1 {
+    border-bottom-left-radius: 1rem;
+}
+
+.rounded-bottom-right-1 {
+    border-bottom-right-radius: 1rem;
+}
+
+.width-150 {
+    width:150px;
+}
+
+.width-200 {
+    width:200px;
+}
+
+.price-total-style {
+    color: #717343;
+}
+
+.forecast-button-style {
+    background-color: #717343;
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.forecast-cancel-button-style {
+    color: #f1807e;
+    font-size: 16px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    border: 2px solid #f1807e;
+}
+    .forecast-cancel-button-style:hover {
+        background-color: #f1807e;
+        color: white;
+    }
+
+.forecast-button-style:hover {
+    background-color: #8A9A5B;
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.logo-img {
+    width: 150px;
+}
+
+.bg-login {
+    background: no-repeat bottom/35% url("../pictures/LOGO FOREST BLANC.png");
+    background-position: bottom center;
+    background-color: #F2AC29;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+    .selectOneProduct:hover, .addToSecondTab:hover ~ .selectOneProduct {
+        background-color: #EDFCF4;
+    }
+
+/* Back button */
+#backtoIndex, #backtoCP {
+    border-color: #717343;
+    color: #717343;
+    font-weight: 700;
+}
+
+    #backtoIndex:hover, #backtoCP:hover {
+        color: #fff;
+        font-weight: 700;
+        background: #717343;
+    }
+
+/* Tableau Style */
+.style-status-general {
+    font-weight: bold;
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0.3em 0.5em;
+}
+
+.style-status-made {
+    background-color: #DADEC0;
+    color: #717343;
+}
+
+.style-status-make {
+    background-color: #ffe8e7;
+    color: #f1807e;
+}
+
+.style-status-new {
+    background-color: #fee6d2;
+    color: #F2AC29;
+}
+
+td {
+    text-align: center;
+}
+
+.productDescription, .subTableTitle, .customerName {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.table-success > tbody > tr:nth-child(odd) > td,
+.table-success > tbody > tr:nth-child(odd) > th {
+    background-color: white;
+}
+
+.table-success > tbody > tr:nth-child(even) > td,
+.table-success > tbody > tr:nth-child(even) > th {
+    background-color: white;
+}
+
+/*Color selected filter table*/
+i[active-sort="true"] {
+    color: #F2AC29;
+}
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    vertical-align: baseline;
+}
+
+.p-container {
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.pagination-container div {
+    flex: 1;
+    margin: 0px 5px;
+    background: #ffff;
+    border-radius: 3px;
+    border: 0.5px solid #dee2e6;
+}
+
+    .pagination-container div:hover {
+        background: #DADEC0;
+        color: black;
+    }
+
+    .pagination-container div.active {
+        background-color: #717343;
+    }
+
+    .pagination-container div:hover a {
+        color: black;
+    }
+
+    .pagination-container div.active a {
+        color: white;
+    }
+
+.pagination-container a {
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    height: 35px;
+    width: 35px;
+    display: block;
+    line-height: 45px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+
+/* Responsive gestion */
+@media (max-width: 768px) {
+    .bg-login {
+        background: no-repeat bottom/65% url("../pictures/LOGO FOREST BLANC.png");
+        background-position: bottom center;
+        background-color: #F2AC29;
+    }
+    
+}
+
+
+
+@media (max-width: 450px) {
+
+    .bg-login {
+        background: no-repeat bottom/100% url("../pictures/LOGO FOREST BLANC.png");
+        background-position: bottom center;
+        background-color: #F2AC29;
+    }
+
+    #productsTab {
+        overflow-x:auto;
+    }
+
+    
+
+}
+
+.fw-bold text-center{
+    margin-left:10%;
+}
+/************************ COMMON STYLES END ************************/
+/************************ NAVIGATION BAR START ************************/
+nav {
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+.user-info-container.active .info-elements {
+    display: block;
+    z-index: 2;
+  
+}
+
+.user-info-container.active .user-info-dropdown-btn i{
+    transform: rotate(-180deg);
+}
+
+.info-elements {
+    background: white;
+    display: none;
+    top: 25px;
+    border-radius: 0 0 5% 5%;
+}
+
+/* BTN User Info */
+.user-info-dropdown-btn i {
+    transition: 0.3s;
+}
+
+.user-info-dropdown-btn:hover {
+    background:#D9D9D9;
+}
+
+.info-elements .clickable-element:hover{
+    background: #479cf74c;
+}
+
+/* Patch update */
+.release-dropdown.active {
+    visibility: visible;
+    opacity: 1;
+    z-index:1000;
+}
+
+.release-dropdown:before {
+    content: "";
+    border-bottom: 15px solid #fff;
+    border-right: 17px solid transparent;
+    border-left: 17px solid transparent;
+    position: absolute;
+    bottom: -15px;
+    right: 0;
+    z-index: 10;
+}
+
+.release-dropdown {
+    overflow: auto;
+    background: orange;
+    background-color: rgb(250,250,250);
+    text-align: left; 
+    top: 65px;
+    height: 200px;
+    left: 50%;
+    margin-left: -100px;
+    width: 300px;
+    -webkit-transition: all .3s .1s;
+    -moz-transition: all .3s .1s;
+    -o-transition: all .3s .1s;
+    transition: all .3s .1s;
+    -webkit-transition: background-color .1s;
+    -moz-transition: background-color .1s;
+    -o-transition: background-color .1s;
+    transition: background-color .1s;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,.4);
+    -moz-box-shadow: 0px 1px 3px rgba(0,0,0,.4);
+    box-shadow: 0px 1px 3px rgba(0,0,0,.4);
+    visibility: hidden;
+    z-index: 2;
+}
+
+.release-list li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px;
+    margin-bottom: 10px;       
+}
+
+.see-details-link {
+    background: #F7A600;
+    margin-right:2%;
+    border-radius: 5%;
+    padding: 8px;
+}
+
+.see-details-link:hover {
+    background: #F7A100;
+}
+
+/* Card User Name Navbar */
+.user-info-container {  
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+}
+/************************ NAVIGATION BAR END ************************/
+
+/************************ LOGIN STYLE START ************************/
+/* Gray border line with green shadow for hr (separator) */
+.login-form .welcome-phrases {
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 15px 10px -15px #717343;
+    margin-top: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 15px;
+}
+
+.login-btn {
+    height: 5vh;
+    width: 100%;
+    outline: none;
+    background: #717343;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+.login-btn:hover {
+    background: #8A9A5B;
+}
+/************************ LOGIN STYLE END ************************/
+
+/************************ SETTINGS ACCOUNT PAGE STYLE START ************************/
+.User-setting {
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+    .User-setting .title {
+        font-size: 2em;
+        padding-bottom: 18px;
+    }
+
+.user-settings-form .form-field {
+    position: relative;
+    margin: 32px 0;
+}
+
+.user-settings-form .input-text, .user-settings-form .select-list {
+    display: block;
+    width: 100%;
+    height: 36px;
+    border-width: 0 0 2px 0;
+    border-color: #717343;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+    padding: .375rem 2.25rem .375rem .75rem;
+}
+
+    .user-settings-form .input-text:focus {
+        outline: none;
+    }
+
+.user-settings-form .label {
+    transform: translateY(-24px);
+    position: absolute;
+    left: 20px;
+    bottom: 11px;
+    font-size: 18px;
+    color: #717343;
+    cursor: text;
+}
+/************************ SETTINGS ACCOUNT PAGE STYLE END ************************/
+
+/************************ CALENDAR STYLE START ************************/
+#prevRange {
+    background-image: url(../pictures/calendar-range.svg);
+    padding-right: 2rem;
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    text-align: center;
+    border: 3px solid #717343;
+}
+
+.monthsDiv span.monthInterval {
+    background-color: #DADEC0;
+}
+
+.monthsDiv span[selected="selected"] {
+    background-color: #717343;
+    color: white;
+}
+
+.monthsDiv span {
+    cursor:pointer;
+}
+
+.monthsDiv span:hover {
+    background-color: lightgray;
+}
+
+.ongoing-campaignBtn, .next-campaignBtn {
+    border-bottom: solid 1px black;
+    border-left: none;
+    border-right: none;
+    border-top: solid 1px black;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+    .ongoing-campaignBtn:hover, .next-campaignBtn:hover {
+        background-color: #F5F5F5;
+    }
+
+.modal-header {
+    background-color: #717343;
+    color: white;
+}
+/************************ END CALENDAR STYLE ************************/
+
+/************************ SLIDER STYLE START ************************/
+.slide-controls input[type=radio] {
+    display:none;
+}
+
+.slide-controls {
+    height: 45px;
+    width: 60%;
+    overflow: hidden;
+    margin: 0 0 10px 0;
+    border: 1px solid lightgrey;
+    border-radius: 0.375rem;
+}
+
+    .slide-controls .slide {
+        color: #fff;
+        font-weight: 500;
+        line-height: 44px;
+        z-index: 1;
+        transition: all 0.6s ease;
+    }
+
+    .slide-controls .slider-tab {
+        position: absolute;
+        height: 100%;
+        width: 50%;
+        left: 0;
+        z-index: 0;
+        border-radius: 0.375rem;
+        background: -webkit-linear-gradient(left,#717343,#717343,#717343);
+        transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
+    }
+
+    .slide-controls label.client {
+        color: #fff;
+    }
+
+#article:checked ~ .slider-tab {
+    left: 50%;
+}
+
+#article:checked ~ label.article {
+    color: #fff;
+    cursor: default;
+    user-select: none;
+}
+
+#article:checked ~ label.client {
+    color: #000;
+}
+
+#client:checked ~ label.article {
+    color: #000000;
+}
+
+#client:checked ~ label.client {
+    cursor: default;
+    user-select: none;
+}
+/************************ SLIDER START END ************************/
+
+/************************ CUSTOMERS PRODUCTS PAGE START ************************/
+.customersInfo {
+    font-weight: 700;
+}
+
+/* Selected Period Style */
+.forecastPeriodRO {
+    cursor: not-allowed;
+    border: none;
+    font-weight: 700;
+    font-size: 1.05em;
+}
+
+.txt-selectedPeriod {
+    font-size: 1.em;
+    text-decoration: underline;
+}
+
+.bi-arrow-up-square:hover {
+    color: gray !important;
+}
+
+/* Forecast Input onchange */
+.dbVolume, .dbVolume:focus {
+    background-color: #DADEC04D;
+    color: #717343;
+    font-weight: 800;
+}
+
+.dbVolumeOnChange, .dbVolumeOnChange:focus {
+    background-color: #DADEC04D;
+    color: #717343;
+    font-weight: 800;
+}
+
+/* Add Product Button */
+.addProduct {
+    background: #717343;
+    border-radius: 3em;
+    padding: 1em;
+    width: 60px;
+    transition: width 1s ease-in-out;
+    height: 55px;
+    white-space: nowrap;
+}
+
+    .addProduct .icon {
+        font-size: 30px;
+        line-height: 10px;
+
+    }
+
+    .addProduct .phrase {
+        display: none;
+    }
+
+    .addProduct:hover {
+        width: 220px;
+        padding: 1em;
+    }
+
+        .addProduct:hover .phrase {
+            display: inline;
+        }
+
+        .addProduct:hover .icon {
+            display: none;
+        }
+/************************ CUSTOMERS PRODUCTS PAGE END  ************************/
+
+/************************ COMPANY PRODUCTS PAGE STYLE START  ************************/
+.checkbox-xl .form-check-input, .selectOneProduct {
+    width: 30px;
+    height: 30px;
+}
+
+#tableK > tbody > tr.checked > td {
+    background-color: #5bc0de !important;
+    color: white; /* Set text color to white for better visibility on dark background */
+}
+
+.addReturn-btn, .addStay-btn {
+    cursor: not-allowed;
+    width:350px;
+}
+
+    .addReturn-btn:disabled, .addStay-btn:disabled {
+        background-color: lightgray;
+        color: white;
+    }
+
+.removeSelectedProduct {
+    padding: 10px;
+}
+
+.firstTable, .secondTable {
+    max-height:640px;
+}
+    .secondTable {
+        overflow:auto;
+    }
+/************************ COMPANY PRODUCTS PAGE STYLE END ************************/

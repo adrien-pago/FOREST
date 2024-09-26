@@ -1,0 +1,176 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+@model CustomersAViewModel
+
+<form asp-controller="ForecastEntry" asp-action="CompanyProducts" asp-route-idCustomer="@Model.IdClient">
+
+    <div class="row d-flex justify-content-around">
+        <!-- Première table -->
+        <div class="card rounded-3 p-1 col-12 col-md-7 order-1 firstTable ">
+            <div class="tableFixed overflow-auto" style="height: 500px">
+                <table class="table table-striped table-hover table-bordered m-0" id="tableK">
+                    <thead class="header" id="tabHeader">
+                        <tr class="align-middle">
+                            <th id="sortCProductDescription" scope="col" product-sort="@ViewBag.CProductDescriptionSortParm" class="pointer-cursor">
+                                <div class="row">
+                                    <div class="col-6 d-flex align-items-center">
+                                        @Model.Localizer["tableP.headerProductDescription"]
+                                    </div>
+                                    <div class="col-6 d-flex flex-column align-items-end">
+                                        <i class="fa-solid fa-arrow-up-z-a" id="cProductNDesc" @if (ViewBag.SortType == "")
+                                        {
+                                            <text>active-sort='true'</text>
+                                        }></i>
+                                        <i class="fa-solid fa-arrow-down-a-z" id="cProductNAsc" @if (ViewBag.SortType == "ProductDescription_desc")
+                                        {
+                                            <text>active-sort='true'</text>
+                                        }></i>
+                                    </div>
+                                </div>
+                            </th>
+                            <th id="sortCProductCode" scope="col" product-sort="@ViewBag.CProductCodeSAPSortParm" class="pointer-cursor">
+                                <div class="row">
+                                    <div class="col-6 d-flex align-items-center">
+                                        @Model.Localizer["tableP.headerProductCode"]
+                                    </div>
+                                    <div class="col-6 d-flex flex-column align-items-end">
+                                        <i class="fa-solid fa-arrow-up-9-1" id="cProductCodeSAPDesc" @if (ViewBag.SortType == "CodeSAP")
+                                        {
+                                            <text>active-sort='true'</text>
+                                        }></i>
+                                        <i class="fa-solid fa-arrow-down-1-9" id="cProductCodeSAPAsc" @if (ViewBag.SortType == "CodeSAP_desc")
+                                        {
+                                            <text>active-sort='true'</text>
+                                        }></i>
+                                    </div>
+                                </div>
+                            </th>
+                            <th scope="col" style="text-align:center !important"> @Model.Localizer["tableP.headerProductUnit"] </th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th><input type="text" class="form-control" placeholder="@Model.Localizer["search.byDescription"]" id="productSearchDescriptionSoc" asp-for="SearchedProductDescription" /></th>
+                            <th><input type="text" class="form-control" placeholder="@Model.Localizer["search.byCode"]" id="productSearchCodeSoc" asp-for="SearchedProductCode" /></th>
+                            <input type="text" id="focusedElement" asp-for="FocusedElementId" hidden />
+                            <th></th>
+                            <th>
+                                <div class="checkbox-xl position-relative d-flex justify-content-center" title="Tout sélectionner">
+                                    <input class="form-check-input check pointer-cursor" type="checkbox" value="1" id="selectAllCheckbox" />
+                                    <span class="position-absolute z-0 addToSecondTab pointer-cursor" style="top: -0.15em; margin-right: auto; margin-left: auto; font-size: 2em;">+</span>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="allProducts">
+                        @if (Model.Products.Count() == 0 && (Model.SelectedStatus != 4 || Model.ProductFound == false))
+                        {
+                            <tr><th scope="row" colspan="4"> @Model.Localizer["page.noResults"]</th></tr>
+                        }
+                        else
+                        {
+                            @foreach (var article in Model.Products)
+                            {
+                                <tr class="productToCheck">
+                                    <td class="align-middle productDescription" data-type="Description">@article.Description</td>
+                                    <td class="align-middle" data-type="CodeSAP">@article.CodeSAP</td>
+                                    <td class="align-middle" data-type="Unit">@article.Unite</td>
+                                    <td>
+                                        <div class="alll position-relative d-flex justify-content-center">
+                                            <input class="form-check-input selectOneProduct check cursor-pointer" type="checkbox" value="@article.CodeSAP" id="@article.CodeSAP" name="check1">
+                                            <span class="position-absolute z-0 addToSecondTab pointer-cursor" style="top: -0.15em; margin-right: auto; margin-left: auto; font-size: 2em;">+</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination sous le tableau -->
+            <div class="row m-3 p-container d-flex justify-content-between">
+                <div class="col-3 text-start d-none d-md-block" id="pagination">
+                    @if (Model.Products.Count() == 15)
+                    {
+                        <span class="fw-bold">@Model.Localizer["pagination.nbProducts"]: @(Model.Products.Count * Model.Products.PageNumber) / @Model.ProductsListTotal.Count</span>
+                    }
+                    else
+                    {
+                        <span class="fw-bold">@Model.Localizer["pagination.nbProducts"]: @Model.ProductsListTotal.Count / @Model.ProductsListTotal.Count</span>
+                    }
+                </div>
+
+                <div class="col-12 col-md-5 d-flex justify-content-center mt-2 mt-md-0 ">
+                    <div class="pagination-container">
+                        @if (Model.Products.PageNumber != 1 && Model.Products.PageNumber != 2)
+                        {
+                            <div><a id="page_1" class="pagination btn-link d-flex align-items-center justify-content-center fw-bold" target-page="1">1</a></div>
+                            <span class="align-self-end fw-bold fs-5">...</span>
+                        }
+
+                        @if (Model.Products.HasPreviousPage)
+                        {
+                            <div><a id="page_@(Model.Products.PageNumber-1)" class="pagination btn-link d-flex align-items-center justify-content-center fw-bold" target-page="@(Model.Products.PageNumber-1)">@(Model.Products.PageNumber - 1)</a></div>
+                        }
+                        <div class="active"><a id="page_@Model.Products.PageNumber" class="pagination btn-link d-flex align-items-center justify-content-center fw-bold" target-page="@Model.Products.PageNumber">@Model.Products.PageNumber</a></div>
+
+                        @if (Model.Products.HasNextPage)
+                        {
+                            <div><a id="page_@(Model.Products.PageNumber+1)" class="pagination btn-link d-flex align-items-center justify-content-center fw-bold" target-page="@(Model.Products.PageNumber+1)">@(Model.Products.PageNumber + 1)</a></div>
+                        }
+
+                        @if (Model.Products.PageNumber != Model.Products.PageCount && Model.Products.PageNumber != Model.Products.PageCount - 1 && Model.Products.PageCount != 0)
+                        {
+                            <span class="align-self-end fw-bold fs-5">...</span>
+                            <div><a id="page_@Model.Products.PageCount" class="pagination btn-link d-flex align-items-center justify-content-center fw-bold" target-page="@Model.Products.PageCount">@Model.Products.PageCount</a></div>
+                        }
+                    </div>
+                </div>
+              
+                <div class="col-2 text-end fw-bold d-none d-md-block">
+                    @Model.Localizer["pagination.page"] @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) / @Model.Products.PageCount
+                </div> 
+            </div>           
+           
+        </div>
+
+        <!-- Deuxième table (Liste des articles sélectionnés) -->
+        <div class="col-12 col-md-5 order-2 secondTable mt-3 mt-md-0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>@Model.Localizer["tableP.headerProductDescription"]</th>
+                        <th>@Model.Localizer["tableP.headerProductCode"]</th>
+                    </tr>
+                </thead>
+                <tbody id="selectedProductsId">
+                    <input value="" id="productsToAdd" asp-for="ListSelectedProducts" hidden />
+                    <input asp-for="IdCommercial" value="@Model.IdCommercial" hidden />
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-field col-lg-12 mt-3">
+        <div class="row d-flex justify-content-between">
+            <!-- Bouton 1 (Retour) -->
+            <div class="col-12 col-md-4 mb-2 mb-md-0">
+                <input class="addReturn-btn text-center forecast-button-style w-100" type="submit" value="@Model.Localizer["productsPage.companyBtnGoBack"]" name="addReturnBtn" disabled />
+            </div>
+
+            <!-- Bouton 2 (Rester) -->
+            <div class="col-12 col-md-4 d-flex justify-content-end">
+                <input class="addStay-btn forecast-button-style w-100" type="submit" value="@Model.Localizer["productsPage.companyBtnStay"]" name="addStayBtn" disabled />
+            </div>
+        </div>
+    </div>
+
+
+    
+
+</form>
+

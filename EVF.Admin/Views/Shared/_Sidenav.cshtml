@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div>
+    <ul id="mySidenav" class="sidenav">
+        <li>
+            <a href="#" class="text-start">Utilisateurs </a>
+            <ul class="nestedList">
+                <li> <a asp-controller="ManageAccount" asp-action="CreateUserPersonnel" asp-area="Account" aria-current="page" class="text-start">Créer un utilisateur (Personnel)</a> </li>
+                <li> <a asp-controller="ManageAccount" asp-action="CreateUserAdmin" asp-area="Account" aria-current="page" class="text-start">Créer un utilisateur (Admin)</a> </li>
+                <li> <a asp-controller="ManageAccount" asp-action="UsersList" aria-current="page" class="text-start">Liste des utilisateurs</a> </li>
+
+                @*          <a asp-controller="Param" asp-action="Documents" id="documents" class="nav-link link-dark" aria-current="page">
+                <i class="bi bi-file-earmark-text-fill"></i>
+                Documentaire
+                </a> *@
+
+                <li> <a asp-controller="User" asp-action="GenerateUsers" aria-current="page" class="text-start">Génerer les utilisateurs </a> </li>
+            </ul>
+        </li>
+        <li>   <a href="#" class="text-start">Société</a></li>
+        <li>    <a href="#" class="text-start">Prévisions</a></li>
+        <li>   <a href="#" class="text-start">Division</a></li>
+    </ul>
+</div>
+

@@ -1,0 +1,65 @@
+﻿@model UserSettingsViewModel
+@{
+
+    ViewData["Title"] = "UserSettings";
+}
+
+
+<section class="User-setting position-relative">
+    <h1 class="title">@ViewData["page.title"]</h1>
+    <form class="user-settings-form row" asp-controller="Settings" asp-action="UpdateSettings">
+        <div class="form-field col-lg-6">
+            
+                <input type="text" class="input-text" id="username-input" placeholder="@Model.Username" readonly />
+                <label for="username-input" class="label">@ViewData["lbl.username"]</label>
+            
+        </div>
+        <div class="form-field col-lg-6 ">
+            <input type="text" class="input-text" id="company-input" placeholder="@Model.Societe" readonly />
+
+            <label for="company-input" class="label">@ViewData["lbl.company"]</label>
+        </div>
+        <div class="form-field col-lg-6 ">
+            <input type="text" class="input-text" id="email-input" placeholder="@Model.Email" readonly />
+            <label class="label" for="company">@ViewData["lbl.email"]</label>
+        </div>
+    
+        <div class="form-field col-lg-6">
+            <select class="form-select col-4 select-list rounded-0 pointer-cursor" aria-label="Default select example" asp-for="@Model.LangueBD" asp-items="@Model.LangueOptions">
+                <option selected disabled>@ViewData["page.selectlang"]</option>
+            </select>
+            <label class="label" for="langue">@ViewData["lbl.language"]</label>
+        </div>
+
+        <div class="form-field col-lg-6 ">
+            <select class="form-select col-4 select-list rounded-0 pointer-cursor" aria-label="Default select example" asp-for="@Model.FormatDate" asp-items="@Model.FormatDateOptions">
+            </select>
+            <label class="label" for="formatDate">@ViewData["lbl.dateFormat"]</label>
+        </div>
+
+        <div class="form-field col-lg-6 ">
+            <select class="form-select col-4 select-list rounded-0 pointer-cursor" aria-label="Default select example" asp-for="@Model.FormatDecimal" asp-items="@Model.FormatDecimalOptions">
+            </select>
+            <label class="label" for="formatDecimal">@ViewData["lbl.numberFormat"]</label>
+        </div>
+
+        <div class="form-field col-lg-6 ">
+            <select class="form-select col-4 select-list rounded-0 pointer-cursor" aria-label="Default select example" asp-for="@Model.SaveType" asp-items="@Model.SaveTypeOptions">
+            </select>
+            <label class="label" for="saveType">@ViewData["lbl.saveType"]</label>
+        </div>
+
+        <div class="form-field col-lg-12">
+            <div class="row">
+                <div class="col-6">
+                    <a class="cancel-btn-settings text-center forecast-cancel-button-style width-150" asp-controller="ForecastEntry" asp-action="Customers">@ViewData["page.cancelBtn"]</a>
+                </div>
+               <div class="col-6 d-flex justify-content-end">
+                    <input class="submit-btn-settings forecast-button-style width-150" type="submit" value="@ViewData["page.submitBtn"]">
+               </div>
+              
+            </div>
+         
+        </div>
+    </form>
+</section>

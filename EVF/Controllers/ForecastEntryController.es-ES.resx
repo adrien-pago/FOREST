@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="addProducts.warning" xml:space="preserve">
+    <value>Asegúrese de que los productos están agregados antes de utilizar la búsqueda dinámica para evitar perder datos/información en la segunda tabla.</value>
+  </data>
+  <data name="addProducts.warningAlert" xml:space="preserve">
+    <value>Agregue los productos seleccionados haciendo click en uno de los botones.</value>
+  </data>
+  <data name="modal.btnContinue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="modal.Sentence" xml:space="preserve">
+    <value>Tiene cambios sin guardar. ¿Qué desea hacer con sus entradas?</value>
+  </data>
+  <data name="monthpicker.from" xml:space="preserve">
+    <value>Desde</value>
+  </data>
+  <data name="monthpicker.header" xml:space="preserve">
+    <value>Seleccione el período de previsión</value>
+  </data>
+  <data name="monthpicker.monthList" xml:space="preserve">
+    <value>Ene, Feb, Mar, Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic</value>
+  </data>
+  <data name="monthpicker.nc" xml:space="preserve">
+    <value>Campaña siguiente</value>
+  </data>
+  <data name="monthpicker.oc" xml:space="preserve">
+    <value>Campaña en curso</value>
+  </data>
+  <data name="monthpicker.to" xml:space="preserve">
+    <value>Hasta</value>
+  </data>
+  <data name="navigation.backBtn" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="page.addArticlesMsg" xml:space="preserve">
+    <value>No hay ningún producto asociado con el cliente seleccionado.Por favor pulse el botón que se encuentra abajo a la derecha para añadir productos.</value>
+  </data>
+  <data name="page.cancelbtn" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="page.confirmAllBtn" xml:space="preserve">
+    <value>Validar todo</value>
+  </data>
+  <data name="page.confirmbtn" xml:space="preserve">
+    <value>Validar</value>
+  </data>
+  <data name="page.noResults" xml:space="preserve">
+    <value>No hay resultados</value>
+  </data>
+  <data name="page.prefCustomers" xml:space="preserve">
+    <value>Clientes</value>
+  </data>
+  <data name="page.prefProducts" xml:space="preserve">
+    <value>Productos</value>
+  </data>
+  <data name="page.salesperson" xml:space="preserve">
+    <value>Agente de ventas</value>
+  </data>
+  <data name="page.selectedPeriod" xml:space="preserve">
+    <value>Período seleccionado</value>
+  </data>
+  <data name="page.submitbtn" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="pagination.nbCustomers" xml:space="preserve">
+    <value>Total de clientes</value>
+  </data>
+  <data name="pagination.nbProducts" xml:space="preserve">
+    <value>Total de productos</value>
+  </data>
+  <data name="pagination.page" xml:space="preserve">
+    <value>Página</value>
+  </data>
+  <data name="productsPage.btnAddProducts" xml:space="preserve">
+    <value>Añadir productos</value>
+  </data>
+  <data name="productsPage.company" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="productsPage.companyBtnGoBack" xml:space="preserve">
+    <value>Añadir y regresar a la página anterior</value>
+  </data>
+  <data name="productsPage.companyBtnStay" xml:space="preserve">
+    <value>Añadir y mantenerse en la página actual</value>
+  </data>
+  <data name="productsPage.customer" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="search.byCode" xml:space="preserve">
+    <value>Buscar por código...</value>
+  </data>
+  <data name="search.byDescription" xml:space="preserve">
+    <value>Buscar por descripción...</value>
+  </data>
+  <data name="search.byName" xml:space="preserve">
+    <value>Buscar por nombre...</value>
+  </data>
+  <data name="subtable.delivered" xml:space="preserve">
+    <value>Entregados</value>
+  </data>
+  <data name="subtable.forecasts" xml:space="preserve">
+    <value>Previsiones</value>
+  </data>
+  <data name="subtable.portfolios" xml:space="preserve">
+    <value>Pedidos en curso</value>
+  </data>
+  <data name="subtable.Price" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+  <data name="subtable.Pricing" xml:space="preserve">
+    <value>Valoración</value>
+  </data>
+  <data name="tableC.actions" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="tableC.allSalespeople" xml:space="preserve">
+    <value>Todos los agentes de ventas</value>
+  </data>
+  <data name="tableC.daysAgo" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="tableC.headerCode" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="tableC.headerCustomers" xml:space="preserve">
+    <value>Clientes</value>
+  </data>
+  <data name="tableC.headerName" xml:space="preserve">
+    <value>Nombre del cliente</value>
+  </data>
+  <data name="tableC.headerSalespeople" xml:space="preserve">
+    <value>Agentes de ventas</value>
+  </data>
+  <data name="tableC.headerSalespersonName" xml:space="preserve">
+    <value>Nombre del agente de ventas</value>
+  </data>
+  <data name="tableC.headerSortStatus" xml:space="preserve">
+    <value>Todos los estados</value>
+  </data>
+  <data name="tableC.headerStatus" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="tableC.headerStatusMade" xml:space="preserve">
+    <value>Realizado_3</value>
+  </data>
+  <data name="tableC.headerStatusMake" xml:space="preserve">
+    <value>Pendiente_2</value>
+  </data>
+  <data name="tableC.headerStatusNew" xml:space="preserve">
+    <value>Nuevo_1</value>
+  </data>
+  <data name="tableC.today" xml:space="preserve">
+    <value>Hoy</value>
+  </data>
+  <data name="tableP.headerLastUpdate" xml:space="preserve">
+    <value>Última actualización</value>
+  </data>
+  <data name="tableP.headerProductCode" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="tableP.headerProductDescription" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="tableP.headerProductUnit" xml:space="preserve">
+    <value>Unidad</value>
+  </data>
+  <data name="tableRow.Noforecasts" xml:space="preserve">
+    <value>Sin previsiones</value>
+  </data>
+</root>

@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model PatchNoteModel
+@{
+    string todayMonth = DateTime.Today.ToString("MM");
+    string todayYear = DateTime.Today.Year.ToString();
+    var todayDate = DateTime.Today.ToString("dd/MM/yyyy");
+    var majorV = todayYear + todayMonth;
+}
+<div class="row">
+    <div class="col-2">
+        <partial name="_Sidenav" />
+    </div>
+
+    <div class="col-10">
+        <section class="patchNote position-relative">
+            @if (TempData.ContainsKey("msgPatchSuccess"))
+            {
+                <p class="text-center success-msg">@TempData["msgPatchSuccess"] <i class="bi bi-check-circle"></i></p>
+            }
+            <h1 class="title mb-4 fs-3">What's new</h1>
+            <form class="patchNote-form row" asp-controller="ManagePatchNote" asp-action="PatchNoteForm">
+                <div class="form-field col-lg-6">
+                    <input type="text" class="input-text" id="major-input" value="@majorV" asp-for="Version" />
+                    <label for="major-input" class="label">Version majeur</label>
+                </div>
+                <div class="form-field col-lg-6 ">
+                    <input type="number" class="input-text" id="patch-input" asp-for="NumeroCorrectif"/>
+                    <label for="patch-input" class="label">Numéro correctif</label>
+                </div>
+                <div class="form-field col-lg-6 ">
+                    <input type="text" class="input-text" id="title-input" asp-for="Titre"/>
+                    <label class="label" for="title">Titre</label>
+                </div>
+                <div class="form-field col-lg-6 ">
+                    <input type="text" class="input-text" id="updateDate-input" value="@todayDate" readonly ="readonly" disabled/>
+                    <label class="label" for="updateDate">Date de publication</label>
+                </div>
+                <div class="form-field col-lg-12 m-0">
+                    <label class="label-area" for="details">Explication</label>
+                    <textarea class="details-area" asp-for="Explication"></textarea>
+                </div>
+                <div class="form-field col-lg-12">
+                    <div class="row">
+                        <div class="d-flex justify-content-center">
+                            <input class="submit-btn-patchNote forecast-button-style width-150" type="submit" value="@ViewData["page.submitBtn"]">
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </section>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.success-msg').fadeOut(3000);
+        });
+    </script>
+        }

@@ -1,0 +1,131 @@
+﻿@model IndexViewModel
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Home Page";
+    var pn = Model.Customers.PageNumber;
+   var monthList = Model.Localizer["monthpicker.monthList"].ToString().Split(',');
+
+
+}
+
+
+<div class="m-4 row d-flex justify-content-center">
+    <!-- Common container for date picker and switch controls -->
+    <div class="col-12 mb-4 ">    
+        <!-- Align date picker and switch control in a single row -->
+        <div class="row">
+            <!-- Date Picker Section -->
+            <div class="col-12 col-md-6 d-flex align-items-center mb-3 mb-md-0">
+                <div class="from-container position-relative d-flex align-items-center">
+                    <span class="txt-selectedPeriod me-2">@Model.Localizer["page.selectedPeriod"]</span>
+                    <form id="monthpickerInputForm" class="d-flex" asp-controller="ForecastEntry" style="width:100%;">
+                        <input type="text" name="prevRange" id="prevRange" class="form-control pointer-cursor" data-bs-toggle="modal" data-bs-target="#datepickerModal" readonly="readonly" />
+                        <input id="startMonthSelec" type="hidden" asp-for="CurrentPeriod.MonthStart" />
+                        <input id="startYearSelec" type="hidden" asp-for="CurrentPeriod.YearStart" />
+                        <input id="endMonthSelec" type="hidden" asp-for="CurrentPeriod.MonthEnd" />
+                        <input id="endYearSelec" type="hidden" asp-for="CurrentPeriod.YearEnd" />
+                    </form>
+                </div>
+            </div>
+
+            <!-- Switch Control Section -->
+            <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                <div class="slide-controls d-flex position-relative">
+                    <input type="radio" name="slide" id="client" checked>
+                    <input type="radio" name="slide" id="article">
+                    <label for="client" class="pointer-cursor w-50 text-center slide client me-1">@Model.Localizer["page.prefCustomers"]</label>
+                    <label for="article" class="pointer-cursor w-50 text-center slide article">@Model.Localizer["page.prefProducts"]</label>
+                    <div class="slider-tab"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Date Picker -->
+        <div class="modal fade" id="datepickerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">@Model.Localizer["monthpicker.header"]</h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-5 text-center from-calendar text-uppercase fw-bold">@Model.Localizer["monthpicker.from"]</div>
+                                <div class="col-2 text-center">
+                                    <i class="bi bi-arrow-right"></i>
+                                </div>
+                                <div class="col-5 text-center to-calendar text-uppercase fw-bold">@Model.Localizer["monthpicker.to"]</div>
+                            </div>
+                            <div class="row justify-content-between mt-2">
+                                <div class="col-6 border-2 border-end">
+                                    <div class="row justify-content-between mb-3">
+                                        <div class="col-3 text-center">
+                                            <i class="bi bi-caret-left pointer-cursor" id="previousStartYear"></i>
+                                        </div>
+                                        <div class="col-auto">
+                                            <span type="text" id="startYear" class="text-uppercase fw-bold">@Model.CurrentPeriod.YearStart</span>
+                                        </div>
+                                        <div class="col-3 text-center">
+                                            <i class="bi bi-caret-right pointer-cursor" id="nextStartYear"></i>
+                                        </div>
+                                    </div>
+                                    <div class="row border-2 border-bottom monthsDiv" id="startMonths"></div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row justify-content-between mb-3">
+                                        <div class="col-3 text-center">
+                                            <i class="bi bi-caret-left pointer-cursor" id="previousEndYear"></i>
+                                        </div>
+                                        <div class="col-auto">
+                                            <span type="text" id="endYear" class="text-uppercase fw-bold">@Model.CurrentPeriod.YearEnd</span>
+                                        </div>
+                                        <div class="col-3 text-center">
+                                            <i class="bi bi-caret-right pointer-cursor" id="nextEndYear"></i>
+                                        </div>
+                                    </div>
+                                    <div class="row border-2 border-bottom monthsDiv" id="endMonths"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="p-3 ongoing-campaignBtn" campaign-startyear="@Model.Campaigns.YearStartCC" campaign-endyear="@Model.Campaigns.YearEndCC">
+                            <span class="fw-bold">@Model.Localizer["monthpicker.oc"]</span><br />
+                            <p class="fs-6 ongoing-campaign m-0">@monthList[Model.Campaigns.MonthStart - 1] - @Model.Campaigns.YearStartCC / @monthList[Model.Campaigns.MonthEnd - 1] - @Model.Campaigns.YearEndCC</p>
+                        </button>
+                        <button class="p-3 next-campaignBtn" nextcampaign-startyear="@Model.Campaigns.YearStartNC" nextcampaign-endyear="@Model.Campaigns.YearEndNC">
+                            <span class="fw-bold">@Model.Localizer["monthpicker.nc"]</span><br />
+                            <p class="fs-6 next-campaign m-0">@monthList[Model.Campaigns.MonthStart - 1] - @Model.Campaigns.YearStartNC / @monthList[Model.Campaigns.MonthEnd - 1] - @Model.Campaigns.YearEndNC</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="row d-flex justify-content-center p-0">
+        <div id="customersTab" class="col-12">
+            <partial name="_FilterCustomersView" model="Model" />
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    <script src="~/js/evf-datepicker.js"></script>
+
+    <script>
+        // Passing Razor variables to JavaScript
+        var monthList = "@Model.Localizer["monthpicker.monthList"]".split(',');
+        var urlFilteredCustomers = '@Url.Action("FilteredCustomers", "ForecastEntry")';
+        const myModal = new bootstrap.Modal("#datepickerModal");
+        const datePicker = new Datepicker("#previousStartYear", "#nextStartYear", "#startYear", "#previousEndYear", "#nextEndYear", "#endYear", monthList, "#startMonths", "#endMonths");
+    </script>
+    <script src="~/js/evf-filter-costumer.js"></script>
+
+}

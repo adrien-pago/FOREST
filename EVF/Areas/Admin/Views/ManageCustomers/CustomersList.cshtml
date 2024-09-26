@@ -1,0 +1,103 @@
+﻿@model ListsViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+        .codeSociete-active, .codeSociete:hover {
+            color:white;
+      background-color:green;
+    }
+</style>
+<div class="row">
+    <div class="col-2">
+        <partial name="_Sidenav" />
+    </div>
+
+    <div class="col-9 mt-4 flex-grow-1 ps-0">
+        <div class="d-flex justify-content-center flex-column bg-light  border-start border-success border-4 mb-4 ">
+            <span class="text-center mb-3 text-uppercase fw-bold">Code société</span>
+            <ul class="d-flex flex-row justify-content-around ps-0">
+
+                @foreach (var societe in Model.SocieteList)
+                {
+
+                    <li class="codeSociete @if(Model.IdSociete == societe.IdSociete) { <text>codeSociete-active</text>} pointer-cursor fw-bold  border border-success p-1 rounded-1"><a href='@Url.Action("CustomersList", "ManageCustomers", new { idSoc = societe.IdSociete})' class="@if (Model.IdSociete == societe.IdSociete){<text>text-white</text>}else{<text>text-success</text>}">@societe.CodeSociete</a></li>
+                }
+            </ul>
+
+            <input id="idSociete" value="@Model.IdSociete" asp-for="IdSociete" hidden />
+        </div>
+        <div id="customersTab">
+            <partial name="_FilterCustomersListView" model="Model" />
+        </div>
+   
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+
+        function InitEventTableCustomer() {
+            $("#entryAssistant").on("change", (event) => {
+                console.log("Status selected = ", $("#entryCustomer option:selected").val());
+                var assistantName = $("#entryAssistant option:selected").val();
+                var salespersonName = $("#entrySalesperson option:selected").val();
+                var idSociete = $("#idSociete").val();
+
+                UpdateCustomersTable(assistantName, salespersonName, null, idSociete);
+            });
+
+            $("#entrySalesperson").on("change", (event) => {
+                console.log("Status selected = ", $("#entrySalesperson option:selected").val());
+                var assistantName = $("#entryAssistant option:selected").val();
+                var salespersonName = $("#entrySalesperson option:selected").val();
+                var idSociete = $("#idSociete").val();
+
+
+                UpdateCustomersTable(assistantName, salespersonName, null, idSociete);
+            });
+
+
+            // SOUSCRIPTION EVENT PAGINATION
+            $(".pagination").on("click", (event) => {
+                var assistantName = $("#entryAssistant option:selected").val();
+                var salespersonName = $("#entrySalesperson option:selected").val();
+                var targetPageNumber = $(event.currentTarget).attr('target-page');
+                var idSociete = $("#idSociete").val();
+
+                console.log("clicked");
+                UpdateCustomersTable(assistantName, salespersonName, targetPageNumber, idSociete);
+
+            })
+
+        }
+
+
+        $(() => {
+
+            InitEventTableCustomer();
+        })
+
+
+        function UpdateCustomersTable(assistantName, salespersonName, targetPageNumber, idSociete) {
+
+            $.ajax({
+                url: '@Url.Action("FilteredCustomersList", "ManageCustomers")',
+                datatype: 'html',
+                method: "GET",
+                data: { selectedAssistant: assistantName, selectedSalesperson: salespersonName, page: targetPageNumber, idSoc: idSociete },
+                success: function (res) {
+                    $("#customersTab").html('').html(res);
+                    InitEventTableCustomer();
+                },
+                error: function (err) {
+
+                }
+            })
+        }
+
+    </script>
+        }
